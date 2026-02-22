@@ -1,9 +1,9 @@
 # SQLChains Prototype - VLDB Supplemental Material
-## Overview
+## 1. Overview
 
 This repository contains the executable prototype ofSQLChains, the corresponding dataset, and specific methods for reproducing the experimental results in our VLDB submission.
 
-## Directory Structure
+## 2. Directory Structure
 
 The prototype requires the following fixed directory structure (already configured in the provided ZIP package). Do NOT modify the structure to ensure successful execution:
 
@@ -17,11 +17,11 @@ SQLChains-VLDB/
 
 └── README.md           # This documentation
 
-## Environment Requirements
+## 3. Environment Requirements
 
 JDK Version: JDK 8
 
-## Quick Run
+## 4. Quick Run
 
 Follow these steps to run the prototype. No additional configuration or data preparation is needed.
 
@@ -31,17 +31,12 @@ Extract the provided `SQLChains-VLDB.zip` file to any directory (e.g., `D:\SQLCh
 
 ### Step 2: Run the Prototype
 
-Run the program from the extracted directory. Use the commands below for your OS:
+Run the following command from the extracted directory (SQLChains-VLDB):
 
-#### Windows
-
-#### Open Command Prompt
       cd D:\SQLChains-VLDB
       java -Xmx4g -Xms2g -jar SQLChains.jar
 
-#### Alternative: Copy chains.db to Current Directory
-
-If you prefer not to navigate to the extracted directory, copy`chains.db` to your current working directory and run:
+Note: If you're not in the extracted directory, make sure chains.db is in your current working directory and update the jar path accordingly:
 
       java -Xmx4g -Xms2g -jar /path/to/SQLChains-VLDB/SQLChains.jar
 
@@ -49,12 +44,12 @@ If you prefer not to navigate to the extracted directory, copy`chains.db` to you
 
 After launching the prototype, you will see the following prompt (indicating successful startup):
 
-      chains.db found. Starting SQLChains prototype...
+      Starting SQLChains prototype...
       CFP>
 
 Type `help` to view all supported commands (detailed below).
 
-## Core Commands
+## 5. Core Commands
 
 All commands are case-insensitive. Use the examples below to reproduce our experimental results.
 
