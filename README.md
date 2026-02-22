@@ -3,7 +3,7 @@
 
 This repository contains the executable prototype ofSQLChains, the corresponding dataset, and specific methods for reproducing the experimental results in our VLDB submission.
 
-## Critical Directory Structure
+## Directory Structure
 
 The prototype requires the following fixed directory structure (already configured in the provided ZIP package). Do NOT modify the structure to ensure successful execution:
 
@@ -49,8 +49,8 @@ If you prefer not to navigate to the extracted directory, copy`chains.db` to you
 
 After launching the prototype, you will see the following prompt (indicating successful startup):
 
-chains.db found. Starting SQLChains prototype...
-CFP>
+      chains.db found. Starting SQLChains prototype...
+      CFP>
 
 Type `help` to view all supported commands (detailed below).
 
@@ -58,47 +58,35 @@ Type `help` to view all supported commands (detailed below).
 
 All commands are case-insensitive. Use the examples below to reproduce our experimental results.
 
-### 1. help
-
-Show detailed usage information for all commands and parameters.
-
-> help
-
-### 2. quit
-
-Exit the prototype.
-
-> quit
-
-### 3. list [chain_name] [options]
+### 1. list [chain_name] [options]
 
 List query chain details or SQL statements for specified chains. Use this command to inspect the SQL before execution.
 
 #### Usage Examples
 
-# List all query chains
-CFP> list
+#### List all query chains
+      list
 
-# List each query in the tpc-c1 chain
-CFP> list tpc-c1
+#### List each query in the tpc-c1 chain
+      list tpc-c1
 
-# List each query in the tpc-c1-v1 variant chain
-CFP> list tpc-c1-v1
+#### List each query in the tpc-c1-v1 variant chain
+      list tpc-c1-v1
 
-# List full nested SQL of tpc-c1 (ending at q14)
-CFP> list tpc-c1.q14
+#### List full nested SQL of tpc-c1 (ending at q14)
+      list tpc-c1.q14
 
 #### Optional Parameters
 
-- - `--size=N`: Specify dataset scale (default: 1; e.g., --size=3 for 3x scale)
+- `--size=N`: Specify dataset scale (default: 1; e.g., --size=3 for 3x scale)
 
-- - `--ClickHouse`: Output ClickHouse-compatible SQL (default: DuckDB)
+- `--ClickHouse`: Output ClickHouse-compatible SQL (default: DuckDB)
 
-- - `--nosort`: Remove ORDER BY clauses (except for the input query)
+- `--nosort`: Remove ORDER BY clauses (except for the input query)
 
-- - `--cte`: Output SQL in CTE format (default: nested SQL for better performance)
+- `--cte`: Output SQL in CTE format (default: nested SQL for better performance)
 
-### 4. exec chain_name [options]
+### 2. exec chain_name [options]
 
 Execute a full or sub query chain and output execution cost for key steps. This is the core command for reproducing our experimental results.
 
