@@ -1,7 +1,7 @@
 # SQLChains Prototype
 ## 1. Overview
 
-This repository contains the executable prototype ofSQLChains, the corresponding dataset, and specific methods for reproducing the experimental results in our VLDB submission.
+This repository contains the executable prototype of SQLChains, the corresponding dataset, and specific methods for reproducing the experimental results in our VLDB submission.
 
 ## 2. Directory Structure
 
