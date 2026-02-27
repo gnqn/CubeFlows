@@ -1,19 +1,17 @@
-# SQLChains Prototype
+# CubeFlows Prototype
 ## 1. Overview
 
-This repository contains the executable prototype of SQLChains, the corresponding dataset, and specific methods for reproducing the experimental results in our VLDB submission.
+This README provides instructions for running the CubeFlows prototype (`Prototype.rar`), including system setup, execution commands, and the experimental methods used to reproduce the results in the paper.
 
 ## 2. Directory Structure
 
 The prototype requires the following fixed directory structure (already configured in the provided ZIP package). Do NOT modify the structure to ensure successful execution:
 
-      SQLChains-VLDB/
+      Prototype/
 
       ├── lib/                 # Dependencies (no action required)
 
       ├── chains.db            # 1GB dataset/metadata file
-
-      ├── README.md            # This documentation
 
       └── SQLChains.jar        # Executable prototype (JDK8 compiled)
 
@@ -27,27 +25,27 @@ Follow these steps to run the prototype. No additional configuration or data pre
 
 ### Step 1: Extract the ZIP Package
 
-Extract the provided `SQLChains-VLDB.zip` file to any directory (e.g., `D:\SQLChains-VLDB` on Windows).
+Extract the provided `Prototype.rar` file to any directory (e.g., `D:\Prototype` on Windows).
 
 ### Step 2: Run the Prototype
 
 Navigate to the extracted directory and run:
 
 ```bash
-cd D:\SQLChains-VLDB
+cd D:\Prototype
 java -Xmx4g -Xms2g -jar SQLChains.jar
 ```
 
 > **Note:** If you prefer to run from a different directory, make sure `chains.db` is in your current working directory and provide the full path to the JAR file:
 > ```bash
-> java -Xmx4g -Xms2g -jar /path/to/SQLChains-VLDB/SQLChains.jar
+> java -Xmx4g -Xms2g -jar /path/to/Prototype/SQLChains.jar
 > ```
 
 ### Step 3: Verify Execution
 
 A successful startup shows the following prompt:
 ```bash
-Starting SQLChains prototype...
+Starting CubeFLows prototype...
 CFP>
 ```
 
@@ -106,13 +104,13 @@ To fully reproduce the experimental results in our paper, follow the steps below
 Before running the experiments, install the following:
 - **DuckDB**       — Our experiments were conducted on Windows 11 using **DuckDB 1.2**
 - **ClickHouse**   — We used the official Docker image of **ClickHouse 24.8** on Windows 11
-> The experiments in this paper were performed on **Windows 11** with the specific versions noted above. Other versions may work but have not been tested.
+> The experiments in the paper were performed on **Windows 11** with the specific versions noted above. Other versions may work but have not been tested.
 
 ### 6.2 Obtaining SQL Statements for DuckDB and ClickHouse
 
-Use `list` in SQLChains to generate SQL for DuckDB and ClickHouse, e.g., `list tpc-c1.v14`. For ClickHouse, the `--ClickHouse` parameter is only needed for S-C1 queries; other queries do not require it.
+Use `list` in CubeFlows to generate SQL for DuckDB and ClickHouse, e.g., `list tpc-c1.v14`. For ClickHouse, the `--ClickHouse` parameter is only needed for S-C1 queries; other queries do not require it.
 
-SQLChains can output SQL in either **nested** or **CTE** format. In our experiments, we observed that **nested SQL performs better** than CTE on both DuckDB and ClickHouse. Therefore, all experiments in this paper use the **nested SQL** format.
+CubeFlows can output SQL in either **nested** or **CTE** format. In our experiments, we observed that **nested SQL performs better** than CTE on both DuckDB and ClickHouse. Therefore, all experiments in the paper use the **nested SQL** format.
 
 ### 6.3 Execution and Measurement
 
@@ -121,19 +119,21 @@ SQLChains can output SQL in either **nested** or **CTE** format. In our experime
 
 > **Note for DuckDB:** During our experiments, we observed that DuckDB's performance may degrade slightly with continuous execution. To ensure fair and consistent measurements, we recommend exiting DuckDB after each query and restarting the process for the next query. 
 
-### 6.4 Run SQLChains Prototype (Part 1)
+> **Note on single-thread execution:** All experiments were conducted in single-threaded mode. For DuckDB and ClickHouse, this is enforced via `PRAGMA threads=1` and `SET max_threads=1`, respectively. The CubeFlows prototype uses DuckDB as its input engine, with the same `PRAGMA threads=1` setting already enforced in the source code. Although the prototype itself does not support multi-threading, we observed that adding the JVM flag `-XX:ActiveProcessorCount=1` helps stabilize performance in our tests with JDK 11.
 
-Follow the steps in the previous sections to launch the SQLChains prototype. Then use the `exec` command with appropriate parameters to execute the specified query chains.
+### 6.4 Run Experiments with CubeFlows
 
-### 6.5 Run Experiments with DuckDB (Part 2)
+Follow the steps in the previous sections to launch the CubeFlows prototype. Then use the `exec` command with appropriate parameters to execute the specified query chains.
+
+### 6.5 Run Experiments with DuckDB
 1. Launch DuckDB and open the dataset:
    ```sql
    .open chains.db
    .timer on
    PRAGMA threads=1;
-2. Paste the nested SQL obtained from SQLChains and execute.
+2. Paste the nested SQL obtained from CubeFlows and execute.
 
-### 6.6 Run Experiments with ClickHouse (Part 3)
+### 6.6 Run Experiments with ClickHouse
 #### Create Data Tables
 Use DuckDB to export three tables (`lineitem`, `stocks`, `retail`) from `chains.db` to CSV files, then import them into ClickHouse:
 
@@ -152,7 +152,7 @@ FROM file('stocks.csv', CSVWithNames);
 ```
 
 #### Execute Queries
-Set single thread and execute the nested SQL obtained from SQLChains:
+Set single thread and execute the nested SQL obtained from CubeFlows:
 ```sql
 SET max_threads=1;
 [Paste the nested SQL here]
@@ -195,7 +195,8 @@ The **Stocks** dataset was compiled by the authors.
 
 For any issues related to prototype execution or reproducibility, please contact the corresponding author of the paper.
 
----
 
-Last Updated: VLDB Submission Period 2026
+
+
+
 
